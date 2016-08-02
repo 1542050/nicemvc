@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 09:46:35
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-02 18:00:54
+ * @Last Modified time: 2016-08-02 20:17:23
  */
 
 # Start session
@@ -42,7 +42,28 @@ $controllerName = lowerToUpper($request->getParam('controller'), TRUE) . 'Contro
 $controllerPath = APPLICATION_PATH . '/controllers/' . $controllerName . '.php';
 
 # Check exists controller file
+if (file_exists($controllerPath)) {
+  require_once 'Controller.php';
+  require_once $controllerPath;
+  # Check exists controller class
+  if (class_exists($controllerName)) {
+    $controllerObj = new $controllerName();
+    # Check exists action method
+    $actionName = $request->getParam('action');
+    $actionMethod = upperToLower($actionName) . 'Action';
+    if (method_exists($controllerObj, $actionMethod)) {
+      $controllerObj->$actionMethod();
 
+      # Render Layout
+    } else {
+      $response->methodNotFound($actionMethod);
+    }
+  } else {
+    $response->classNotFound($controllerName);
+  }
+} else {
+  $response->fileNotFound($controllerPath);
+}
 
 
 
