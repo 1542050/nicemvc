@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 17:56:24
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-03 00:15:20
+ * @Last Modified time: 2016-08-03 00:33:43
  */
 class View {
   private $_viewPath;
@@ -17,6 +17,7 @@ class View {
   public function __construct($viewPath) {
     $this->_viewPath = $viewPath;
     $this->layout = new stdClass();
+    $this->_layout = $this->_defaultLayout;
   }
 
   public function setViewPath($value) {
@@ -44,9 +45,6 @@ class View {
   }
 
   public function render($file, $layout = null) {
-    # Set default layout
-    $this->_layout = $this->_defaultLayout;
-
     if (!is_null($layout)) {
       $this->_layout = $layout;
     }
@@ -67,7 +65,7 @@ class View {
 
     # Get result
     $result = ob_get_contents();
-    
+
     # Clean buffer
     ob_end_clean();
     return $result;

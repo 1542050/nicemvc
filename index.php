@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 09:46:35
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-03 00:02:28
+ * @Last Modified time: 2016-08-03 00:31:13
  */
 
 # Start session
@@ -53,11 +53,15 @@ if (file_exists($controllerPath)) {
     $actionMethod = upperToLower($actionName) . 'Action';
     if (method_exists($controllerObj, $actionMethod)) {
       $controllerObj->$actionMethod();
-
       # Check exist action file
       if (!$controllerObj->checkViewFile()) {
-        # Render Layout
-        $controllerObj->autoRender();
+        $layout_file = $controllerObj->getView()->getLayout() . $controllerObj->getView()->getsuffix();
+        if (!$controllerObj->checkViewFile($layout_file)) {
+          # Render Layout
+          $controllerObj->autoRender();
+        } else {
+          $response->fileNotFound($layout_file); 
+        }
       } else {
         $response->fileNotFound($request->getParam('controller') . '/' . $actionName . '.tpl.php');
       }

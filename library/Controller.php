@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 17:55:37
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-03 00:07:17
+ * @Last Modified time: 2016-08-03 00:32:00
  */
 class Controller {
   protected $_view;
@@ -49,10 +49,17 @@ class Controller {
   }
 
   # Check viewFile
-  public function checkViewFile() {
-    if (!file_exists($this->_view->getViewPath() . '/' . $this->_controller . '/' . $this->_action . $this->_view->getSuffix())) {
-      return true;
+  public function checkViewFile($file_name = null) {
+    if (is_null($file_name)) {
+      if (!file_exists($this->_view->getViewPath() . '/' . $this->_controller . '/' . $this->_action . $this->_view->getSuffix())) {
+        return true;
+      }
+    } else {
+      if (!file_exists($this->_view->getViewPath() . '/' . $file_name)) {
+        return true;
+      }
     }
+    
     return false;
   }
 }
