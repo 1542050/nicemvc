@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 09:46:35
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-02 20:17:23
+ * @Last Modified time: 2016-08-02 20:34:54
  */
 
 # Start session
@@ -47,7 +47,7 @@ if (file_exists($controllerPath)) {
   require_once $controllerPath;
   # Check exists controller class
   if (class_exists($controllerName)) {
-    $controllerObj = new $controllerName();
+    $controllerObj = new $controllerName($request, $response);
     # Check exists action method
     $actionName = $request->getParam('action');
     $actionMethod = upperToLower($actionName) . 'Action';
@@ -55,6 +55,7 @@ if (file_exists($controllerPath)) {
       $controllerObj->$actionMethod();
 
       # Render Layout
+      $controllerObj->autoRender();
     } else {
       $response->methodNotFound($actionMethod);
     }
