@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 17:55:37
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-02 20:34:33
+ * @Last Modified time: 2016-08-03 00:07:17
  */
 class Controller {
   protected $_view;
@@ -14,10 +14,16 @@ class Controller {
 
   protected $_autoRender = true;
 
+  protected $_controller;
+
+  protected $_action;
+
   public function __construct($request, $response) {
     $this->_request = $request;
     $this->_response = $response;
-    $this->_view = 'AA';
+    $this->_controller = $request->getParam('controller');
+    $this->_action = $request->getParam('action');
+    $this->_view = $response->getView();
   }
 
   # Shortcut Request
@@ -38,7 +44,15 @@ class Controller {
   # Auto render view
   public function autoRender() {
     if ($this->_autoRender) {
-      echo "Render Nè";
+      $this->_response->render($this->_controller. '/' . $this->_action);
     }
+  }
+
+  # Check viewFile
+  public function checkViewFile() {
+    if (!file_exists($this->_view->getViewPath() . '/' . $this->_controller . '/' . $this->_action . $this->_view->getSuffix())) {
+      return true;
+    }
+    return false;
   }
 }

@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 09:46:35
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-02 20:34:54
+ * @Last Modified time: 2016-08-03 00:02:28
  */
 
 # Start session
@@ -54,8 +54,13 @@ if (file_exists($controllerPath)) {
     if (method_exists($controllerObj, $actionMethod)) {
       $controllerObj->$actionMethod();
 
-      # Render Layout
-      $controllerObj->autoRender();
+      # Check exist action file
+      if (!$controllerObj->checkViewFile()) {
+        # Render Layout
+        $controllerObj->autoRender();
+      } else {
+        $response->fileNotFound($request->getParam('controller') . '/' . $actionName . '.tpl.php');
+      }
     } else {
       $response->methodNotFound($actionMethod);
     }
@@ -65,6 +70,8 @@ if (file_exists($controllerPath)) {
 } else {
   $response->fileNotFound($controllerPath);
 }
+
+echo $response->getMarkup();
 
 
 
