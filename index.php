@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 09:46:35
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-02 08:18:03
+ * @Last Modified time: 2016-08-02 18:00:54
  */
 
 # Start session
@@ -18,6 +18,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/mode
 set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/views');
 
 # Include library
+require_once 'Function.php';
 require_once 'Request.php';
 require_once 'Response.php';
 
@@ -36,23 +37,11 @@ $response = new Response();
 # Routing request
 $request->route();
 
-function dashToCamelCase($s, $ucfirst = true) {
-  $s = preg_replace('/-(.?)/e', "strtoupper('$1')", $s);
-  if ($ucfirst) {
-    return ucfirst($s);
-  }
-  return $s;
-}
-
-function camelCaseToDash($s) {
-  return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1-$2", $s)); 
-}
-
 # Create Controller
-$controllerName = $request->getParam('controller') . 'Controller';
+$controllerName = lowerToUpper($request->getParam('controller'), TRUE) . 'Controller';
 $controllerPath = APPLICATION_PATH . '/controllers/' . $controllerName . '.php';
 
-print_r($controllerName); exit;
+# Check exists controller file
 
 
 
