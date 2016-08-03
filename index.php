@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 09:46:35
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-03 00:31:13
+ * @Last Modified time: 2016-08-03 09:22:28
  */
 
 # Start session
@@ -13,7 +13,7 @@ session_start();
 define('APPLICATION_PATH', __DIR__);
 
 # Add require path
-set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/library');
+set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/includes');
 set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/models');
 set_include_path(get_include_path() . PATH_SEPARATOR . APPLICATION_PATH . '/views');
 
