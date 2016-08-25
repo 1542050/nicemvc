@@ -3,7 +3,7 @@
  * @Author: kimbui
  * @Date:   2016-08-01 17:56:47
  * @Last Modified by:   kimbui
- * @Last Modified time: 2016-08-03 21:40:08
+ * @Last Modified time: 2016-08-25 18:08:04
  */
 class Request {
   private $_param = array();
@@ -38,7 +38,12 @@ class Request {
     return $this->_getValue($_POST, $name);
   }
 
-  public function isPost($name) {
+  public function isPost($name = NULL) {
+    if (is_null($name)) {
+      if (sizeof($_POST)) {
+        return TRUE;
+      }
+    }
     if (isset($_POST[$name])) {
       return TRUE;
     }
