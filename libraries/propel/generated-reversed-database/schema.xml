@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+  <table name="category" idMethod="native" phpName="Category">
+    <column name="category_id" phpName="CategoryId" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="name" phpName="Name" type="VARCHAR" size="100" required="true"/>
+    <column name="parent_id" phpName="ParentId" type="INTEGER" required="true"/>
+    <column name="order_display" phpName="OrderDisplay" type="INTEGER" required="true"/>
+    <column name="created" phpName="Created" type="TIMESTAMP" required="true"/>
+    <column name="updated" phpName="Updated" type="TIMESTAMP" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="course" idMethod="native" phpName="Course">
+    <column name="course_id" phpName="CourseId" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="title" phpName="Title" type="VARCHAR" size="500" required="true"/>
+    <column name="description" phpName="Description" type="LONGVARCHAR" required="true"/>
+    <column name="created" phpName="Created" type="TIMESTAMP" required="true"/>
+    <column name="updated" phpName="Updated" type="TIMESTAMP" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="lesson" idMethod="native" phpName="Lesson">
+    <column name="lesson_id" phpName="LessonId" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="title" phpName="Title" type="VARCHAR" size="500" required="true"/>
+    <column name="video_url" phpName="VideoUrl" type="VARCHAR" size="500" required="true"/>
+    <column name="course_id" phpName="CourseId" type="INTEGER" required="true"/>
+    <column name="updated" phpName="Updated" type="TIMESTAMP" required="true"/>
+    <column name="created" phpName="Created" type="TIMESTAMP" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="user" idMethod="native" phpName="User">
+    <column name="user_id" phpName="UserId" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="username" phpName="Username" type="VARCHAR" size="50" required="true"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="200" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="100" required="true"/>
+    <column name="fullname" phpName="Fullname" type="VARCHAR" size="100" required="true"/>
+    <column name="type" phpName="Type" type="INTEGER" required="true"/>
+    <column name="roles" phpName="Roles" type="LONGVARCHAR" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>
